@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import SideBar from './components/shared/SideBar/SideBar';
-import HackerNews from './components/HackerNews/HackerNews'
-import Reddit from './components/Reddit/Reddit'
-import Medium from './components/Medium/Medium'
-import { HashRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
+import React, { Component } from "react";
+import SideBar from "./components/shared/SideBar/SideBar";
+import HackerNews from "./components/HackerNews/HackerNews";
+import Reddit from "./components/Reddit/Reddit";
+import Medium from "./components/Medium/Medium";
+import { HashRouter, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <HashRouter>
-        <div className='App'>
+        <div className="App">
           <SideBar />
+          <h1>{this.props.count}</h1>
           <Switch>
-            <Route path='/hacker-news' component={HackerNews} />
-            <Route path='/medium' component={Medium} />
-            <Route path='/reddit' component={Reddit} />
+            <Route path="/hacker-news" component={HackerNews} />
+            <Route path="/medium" component={Medium} />
+            <Route path="/reddit" component={Reddit} />
           </Switch>
         </div>
       </HashRouter>
@@ -23,4 +26,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (reduxState) => {
+  return {
+    count: reduxState.count,
+  };
+};
+
+export default connect(mapStateToProps)(App);
